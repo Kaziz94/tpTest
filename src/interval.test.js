@@ -31,6 +31,7 @@ describe('interval', function () {
         [new Interval(5,6), [new Interval(4,7)]],
         [new Interval(10,14), [new Interval(4,7), new Interval(10,14)]],
         [new Interval(0,2), [new Interval(4,7), new Interval(0,2)]],
+        [new Interval(1,3), [new Interval(4,7), new Interval(1,3)]],
         
     ])(
         'union %s %s',
