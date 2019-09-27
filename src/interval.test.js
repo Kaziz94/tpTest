@@ -1,7 +1,7 @@
 const Interval = require('./interval');
 
 describe('interval', function () {
-    var interval = new Interval(4,7);
+    var interval4_7 = new Interval(4,7);
     test.each([
         [new Interval(5,8), true],
         [new Interval(9,12), false],
@@ -10,7 +10,7 @@ describe('interval', function () {
     ])(
         'overlaps',
         (n, expected) => {
-            expect(interval.overlaps(n)).toBe(expected);
+            expect(interval4_7.overlaps(n)).toBe(expected);
         }
     );
 
@@ -23,7 +23,7 @@ describe('interval', function () {
     ])(
         'includes %s\t%p',
         (n, expected) => {
-            expect(interval.includes(n)).toBe(expected);
+            expect(interval4_7.includes(n)).toBe(expected);
         }
     );
 
@@ -36,7 +36,18 @@ describe('interval', function () {
     ])(
         'union %s %s',
         (n, expected) => {
-            expect(interval.union(n)).toStrictEqual(expected);
+            expect(interval4_7.union(n)).toStrictEqual(expected);
+        }
+    );
+
+    test.each([
+        /*[new Interval(5,6), new Interval(5,6)],*/
+        [new Interval(10,14), null],
+        
+    ])(
+        'intersection %s %s',
+        (n, expected) => {
+            expect(interval4_7.intersection(n)).toStrictEqual(expected);
         }
     );
 });
