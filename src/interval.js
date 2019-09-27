@@ -93,7 +93,7 @@ class Interval {
      * @returns {Interval|null}
      */
     intersection(interval) {
-
+        return null;
     };
 
     /**
