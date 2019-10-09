@@ -43,7 +43,7 @@ class Interval {
      * @returns {boolean}
      */
     includes(interval) {
-        return interval.start >= this.start && interval.end <= this.end;
+        return this.start <= interval.start && this.end >= interval.end;
     };
 
     /**
@@ -63,17 +63,31 @@ class Interval {
      * @returns {Interval[]}
      */
     union(interval) {
-        var res = [];
-        if(this.overlaps(interval))
-        {
-            res.push(new Interval((this.start < interval.start ? this.start : interval.start),(this.end >= interval.end ? this.end : interval.end)));
+        var intervals = [];
 
+        if (this.overlaps(interval) == false) {
+            intervals[0]=this;
+            intervals[1]=interval;
+        } else {
+        
+            var startUnion = 0;
+            var endUnion = 0;
+
+            if (interval.start >= this.start) {
+                startUnion = this.start
+            } else {
+                startUnion = interval.start
+            }
+
+            if (interval.end <= this.end) {
+                endUnion = this.end
+            } else {
+                endUnion = interval.end
+            }
+            var newIterval = new Interval(startUnion, endUnion);
+            intervals.push(newIterval);
         }
-        else
-        {
-            res.push(this, interval);
-        }
-        return res;
+        return intervals;
     };
 
     /**
@@ -93,7 +107,28 @@ class Interval {
      * @returns {Interval|null}
      */
     intersection(interval) {
-        return null;
+        var intervals = [];
+
+        if (this.overlaps(interval) == true) {
+
+            var startUnion = 0;
+            var endUnion = 0;
+
+            if (interval.start <= this.start) {
+                startUnion = this.start
+            } else {
+                startUnion = interval.start
+            }
+
+            if (interval.end >= this.end) {
+                endUnion = this.end
+            } else {
+                endUnion = interval.end
+            }
+            var newIterval = new Interval(startUnion, endUnion);
+            intervals.push(newIterval);
+        }
+        return intervals;
     };
 
     /**
@@ -113,8 +148,40 @@ class Interval {
      * @returns {Interval[]}
      */
     exclusion(interval) {
+        var intervals = [];
+        var intersection = this.intersection(interval);
 
+        if (intersection.length==0) {
+            intervals[0]=this;
+            intervals[1]=interval;
+        } else {
+
+            if (this.start==interval.start) {
+                if (this.end>interval.end) {
+                    intervals[0]=new Interval(intersection[0].end, this.end);
+                } else {
+                    intervals[0]=new Interval(intersection[0].end, interval.end);
+                }
+
+            } else if (this.end==interval.end) {
+                if (this.start>interval.start) {
+                    intervals[0]=new Interval(interval.start, intersection[0].start);
+                } else {
+                    intervals[0]=new Interval(this.start, intersection[0].start);
+                }
+
+            } else if (this.start<=interval.start) {
+                intervals[0] = new Interval(this.start, intersection[0].start);
+                intervals[1] = new Interval(intersection[0].end, interval.end);
+            } else  {
+                intervals[0] = new Interval(interval.start, intersection[0].start);
+                intervals[1] = new Interval(intersection[0].end, this.end);
+            }           
+        }
+        return intervals;
     };
 }
 
 module.exports = Interval;
+
+    
