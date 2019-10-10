@@ -48,3 +48,21 @@ describe('Total price', function () {
     });
 
 });
+
+describe('find by name', function () {
+
+    var livre_test = {"id": 2, "name": "Livre1", "price": 4.5, "added_at": "2019-09-24"};
+    
+    const dbMock = {
+            get : jest.fn().mockReturnThis(),
+            find : jest.fn().mockReturnThis(),
+            value : jest.fn().mockReturnValue(livre_test)
+        };
+
+    test('get book by Name ', () => {
+
+        const repository = new BookRepository(dbMock);
+        expect(repository.getBookByName("Livre1")).toEqual(livre_test);
+    });
+
+});
