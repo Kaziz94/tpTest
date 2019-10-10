@@ -134,7 +134,37 @@ class Interval {
      * @returns {Interval[]}
      */
     exclusion(interval) {
+        var intervals = [];
+        var intersection = this.intersection(interval);
 
+        if (intersection.length==0) {
+            intervals[0]=this;
+            intervals[1]=interval;
+        } else {
+
+            if (this.start==interval.start) {
+                if (this.end>interval.end) {
+                    intervals[0]=new Interval(intersection[0].end, this.end);
+                } else {
+                    intervals[0]=new Interval(intersection[0].end, interval.end);
+                }
+
+            } else if (this.end==interval.end) {
+                if (this.start>interval.start) {
+                    intervals[0]=new Interval(interval.start, intersection[0].start);
+                } else {
+                    intervals[0]=new Interval(this.start, intersection[0].start);
+                }
+
+            } else if (this.start<=interval.start) {
+                intervals[0] = new Interval(this.start, intersection[0].start);
+                intervals[1] = new Interval(intersection[0].end, interval.end);
+            } else  {
+                intervals[0] = new Interval(interval.start, intersection[0].start);
+                intervals[1] = new Interval(intersection[0].end, this.end);
+            }           
+        }
+        return intervals;
     };
 }
 
