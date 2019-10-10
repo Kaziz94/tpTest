@@ -1,0 +1,28 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "name": "test",
+      "price": 10.6,
+      "added_at": "2019-09-24"
+    },
+    {
+      "id": 2,
+      "name": "Livre1",
+      "price": 4.5,
+      "added_at": "2019-09-24"
+    },
+    {
+      "id": 3,
+      "name": "Livre2",
+      "price": 7.7,
+      "added_at": "2009-09-24"
+    },
+    {
+      "id": 4,
+      "name": "Livre3",
+      "price": 15.5,
+      "added_at": "2019-09-24"
+    }
+  ]
+}
