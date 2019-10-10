@@ -76,3 +76,63 @@ describe('Intersection', function () {
 	});
 
 });
+
+describe('Exclusion', function () {
+	test('Exclusion interval (2,5) interval (6,8) => Taille 2', () => {
+		var interval2 = new Interval(6, 8);
+		var tab = interval.exclusion(interval2);
+    	expect(tab.length).toBe(2);
+	});
+
+	test('Exclusion interval (2,5) interval (4,8) => Taille 2', () => {
+		var interval2 = new Interval(4, 8);
+		var tab = interval.exclusion(interval2);
+    	expect(tab.length).toBe(2);
+	});
+
+	test('Exclusion interval (2,5) interval (4,10) => [2,4], [5,10]', () => {
+		var interval2 = new Interval(4, 10);
+		var tab = interval.exclusion(interval2);
+    	expect(tab[0]).toEqual(new Interval(2,4));
+    	expect(tab[1]).toEqual(new Interval(5,10));
+	});
+
+	test('Exclusion interval (4,10) interval (2,5) => [2,4], [5,10]', () => {
+		var interval2 = new Interval(4, 10);
+		var tab = interval2.exclusion(interval);
+    	expect(tab[0]).toEqual(new Interval(2,4));
+    	expect(tab[1]).toEqual(new Interval(5,10));
+	});
+
+	test('Exclusion interval (2,5) interval (7, 10) => [2,5], [7,10]', () => {
+		var interval2 = new Interval(7, 10);
+		var tab = interval.exclusion(interval2);
+    	expect(tab[0]).toEqual(interval);
+    	expect(tab[1]).toEqual(interval2);
+	});
+
+	test('Exclusion interval (2,5) interval (2, 7) => [5,7]', () => {
+		var interval2 = new Interval(2, 7);
+		var tab = interval.exclusion(interval2);
+    	expect(tab[0]).toEqual(new Interval(5,7));
+	});
+
+	test('Exclusion interval (2,7) interval (2, 5) => [5,7]', () => {
+		var interval2 = new Interval(2, 7);
+		var tab = interval2.exclusion(interval);
+    	expect(tab[0]).toEqual(new Interval(5,7));
+	});
+
+	test('Exclusion interval (2,5) interval (4, 5) => [2,4]', () => {
+		var interval2 = new Interval(4, 5);
+		var tab = interval.exclusion(interval2);
+    	expect(tab[0]).toEqual(new Interval(2,4));
+	});
+
+	test('Exclusion interval (4,5) interval (2, 5) => [2,4]', () => {
+		var interval2 = new Interval(4, 5);
+		var tab = interval.exclusion(interval2);
+    	expect(tab[0]).toEqual(new Interval(2,4));
+	});
+
+});
