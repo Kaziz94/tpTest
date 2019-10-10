@@ -17,3 +17,18 @@ const dbMock = {
     });
 });
 
+describe('Total count', function () {
+
+    const dbMock = {
+            get : jest.fn().mockReturnThis(),
+            size : jest.fn().mockReturnThis(),
+            value : jest.fn().mockReturnValue(2)
+        };
+
+
+    test('Count Total => 3', () => {
+        const repository = new BookRepository(dbMock);
+        expect(repository.getTotalCount()).toBe(2);
+    });
+
+});
