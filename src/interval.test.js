@@ -42,6 +42,7 @@ describe('interval', function () {
 
 });
 
+var interval = new Interval(2,5);
 describe('Intersection', function () {
 
 	test('Intersection interval (2,5) interval (6,8) => Taille 0', () => {
