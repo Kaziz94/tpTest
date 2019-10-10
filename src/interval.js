@@ -93,7 +93,28 @@ class Interval {
      * @returns {Interval|null}
      */
     intersection(interval) {
-        return null;
+        var intervals = [];
+
+        if (this.overlaps(interval) == true) {
+
+            var startUnion = 0;
+            var endUnion = 0;
+
+            if (interval.start <= this.start) {
+                startUnion = this.start
+            } else {
+                startUnion = interval.start
+            }
+
+            if (interval.end >= this.end) {
+                endUnion = this.end
+            } else {
+                endUnion = interval.end
+            }
+            var newIterval = new Interval(startUnion, endUnion);
+            intervals.push(newIterval);
+        }
+        return intervals;
     };
 
     /**

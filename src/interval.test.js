@@ -40,14 +40,39 @@ describe('interval', function () {
         }
     );
 
-    test.each([
-        /*[new Interval(5,6), new Interval(5,6)],*/
-        [new Interval(10,14), null],
-        
-    ])(
-        'intersection %s %s',
-        (n, expected) => {
-            expect(interval4_7.intersection(n)).toStrictEqual(expected);
-        }
-    );
+});
+
+var interval = new Interval(2,5);
+describe('Intersection', function () {
+
+	test('Intersection interval (2,5) interval (6,8) => Taille 0', () => {
+		var interval2 = new Interval(6, 8);
+		var tab = interval.intersection(interval2);
+    	expect(tab.length).toBe(0);
+	});
+
+	test('Intersection interval (2,5) interval (4,8) => Taille 1', () => {
+		var interval2 = new Interval(4, 8);
+		var tab = interval.intersection(interval2);
+    	expect(tab.length).toBe(1);
+	});
+
+	test('Intersection interval (2,5) interval (4,10) => start 4 end 5', () => {
+		var interval2 = new Interval(4, 10);
+		var tab = interval.intersection(interval2);
+    	expect(tab[0]).toEqual(new Interval(4,5));
+	});
+
+	test('Intersection interval (4,10) interval (2,5) => start 4 end 5', () => {
+		var interval2 = new Interval(4, 10);
+		var tab = interval2.intersection(interval);
+    	expect(tab[0]).toEqual(new Interval(4,5));
+	});
+
+	test('Intersection interval (2,5) interval (7, 10) => []', () => {
+		var interval2 = new Interval(7, 10);
+		var tab = interval.intersection(interval2);
+    	expect(tab).toEqual([]);
+	});
+
 });
